@@ -1,6 +1,6 @@
 // app/api/contact/route.ts
 import { NextResponse } from "next/server";
-import { sanityClient } from "../sanity/sanityConfig";
+import { sanityClient } from "../../sanity/sanityConfig";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
