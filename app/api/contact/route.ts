@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 
     // 2️⃣ Send email
     await resend.emails.send({
-      from: "Website <https://populup.vercel.app/>",
+      from: "populab <onboarding@resend.dev>",
       to: ["ibtihel.bensalah@outlook.fr"],
       subject: `New contact from ${name}`,
       replyTo: email,

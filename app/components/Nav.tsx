@@ -1,9 +1,8 @@
-// components/Nav.tsx
 import Link from "next/link";
 
 const Nav = () => {
   return (
-    <header className="fixed top-0 z-50 w-full bg-zinc-50/80 backdrop-blur dark:bg-black/80">
+    <header className="fixed top-0 z-50 w-full bg-zinc-50/80 backdrop-blur ">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* LOGO */}
         <Link href="/" className="text-lg font-medium tracking-tight">

@@ -55,3 +55,12 @@ export const PAST_EVENTS_QUERY = `
  )
 ] | order(coalesce(date, startDate) desc)
 `;
+export const FONTS_QUERY = `
+*[_type == "font"]
+`;
+export const SPONSORS_QUERY = `*[_type == "sponsor"] | order(priority asc){
+    name,
+    website,
+    description,
+    "logo": logo.asset->url
+  }`;
