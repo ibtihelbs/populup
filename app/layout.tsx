@@ -5,7 +5,7 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import { api } from "./sanity/api";
 import { ACTIVE_THEME_QUERY } from "./sanity/sanityConfig";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 type seoType = {
   title: string;
   description: string;
