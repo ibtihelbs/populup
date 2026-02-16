@@ -13,7 +13,6 @@ const Hero = async () => {
   const home: Home = await api({ query: HOME_QUERY });
   const homes: Home = await api({ query: `*[_type == "home"]{heroImage}` });
 
-  console.log(homes);
   return (
     <section className=" min-h-screen grid grid-cols-3 items-center justify-center px-6 ">
       <div className="col-span-2">

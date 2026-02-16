@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @font-face {
   font-family: "heading", sans-serif;
-  src: url("/papercuts-2.ttf") format("truetype");
+  src: url("/fonts/papercuts-2.ttf") format("truetype");
 }
 :root {
   --background: #ffffff;
