@@ -1,12 +1,18 @@
 import Link from "next/link";
-
+import Image from "next/image";
 const Nav = () => {
   return (
     <header className="fixed top-0 z-50 w-full bg-zinc-50/80 backdrop-blur ">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* LOGO */}
         <Link href="/" className="text-lg font-medium tracking-tight">
-          Atelier
+          <Image
+            src="/logo.jpg"
+            alt="logo"
+            width={50}
+            height={50}
+            className="rounded-full"
+          />
         </Link>
 
         {/* LOCAL NAVIGATION */}
