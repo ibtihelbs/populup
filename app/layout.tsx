@@ -58,6 +58,7 @@ export default function RootLayout({
         <Nav />
         <main className="min-h-[80vh]">{children}</main>
         <Footer />
+        <SpeedInsights />
       </body>
     </html>
   );
