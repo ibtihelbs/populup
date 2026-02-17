@@ -18,17 +18,18 @@ const Nav = () => {
         {/* LOCAL NAVIGATION */}
         <ul className="flex items-center gap-8 text-sm">
           <li>
+            <Link href="/" className="hover:underline">
+              home
+            </Link>
+          </li>
+          <li>
             <Link href="/events" className="hover:underline">
               Events
             </Link>
           </li>
+
           <li>
-            <Link href="/about" className="hover:underline">
-              About
-            </Link>
-          </li>
-          <li>
-            <Link href="/contact" className="hover:underline">
+            <Link href="/#contact" className="hover:underline">
               Contact
             </Link>
           </li>

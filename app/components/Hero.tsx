@@ -40,7 +40,7 @@ const Hero = async () => {
           </a>
         </div>
       </div>
-      <div className="relative bg-amber-600 h-full">
+      <div className="relative  h-full w-full">
         <ImageComponent img={home?.heroImage} alt={home.heroSubtitle} />
       </div>
     </section>

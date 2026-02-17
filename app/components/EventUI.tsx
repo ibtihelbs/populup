@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 type Event = {
   _id: string;
   title: string;
@@ -18,9 +20,10 @@ type Event = {
 
 type EventUIProps = {
   events: Event[];
+  current?: boolean;
 };
 
-const EventListEditorial = ({ events }: EventUIProps) => {
+const EventListEditorial = ({ events, current }: EventUIProps) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return {
@@ -167,19 +170,34 @@ const EventListEditorial = ({ events }: EventUIProps) => {
                   <p className="font-body text-lg font-medium text-[#B85C38]">
                     {event.price} TND
                   </p>
-                  <p className="font-body text-sm text-gray-600">{spotsText}</p>
-                  {event.googleFormUrl && !isSoldOut && (
-                    <a
-                      href={event.googleFormUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block font-body text-sm text-gray-700 hover:text-foreground transition-colors mt-2"
+                  {current ? (
+                    <>
+                      <p className="font-body text-sm text-gray-600">
+                        {spotsText}
+                      </p>
+                      {event.googleFormUrl && !isSoldOut && (
+                        <a
+                          href={event.googleFormUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block font-body text-sm text-gray-700 hover:text-foreground transition-colors mt-2"
+                        >
+                          Reserve your spot
+                        </a>
+                      )}
+                      {isSoldOut && (
+                        <p className="font-body text-sm text-gray-400">
+                          Sold out
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <Link
+                      href={`/events/${event.slug.current}`}
+                      className="font-body text-sm text-gray-700 hover:text-foreground transition-colors mt-2"
                     >
-                      Reserve your spot
-                    </a>
-                  )}
-                  {isSoldOut && (
-                    <p className="font-body text-sm text-gray-400">Sold out</p>
+                      View event details
+                    </Link>
                   )}
                 </div>
               </div>
