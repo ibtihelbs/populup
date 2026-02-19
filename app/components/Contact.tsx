@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import H1 from "./core/H1";
 
 type ContactFormData = {
   name: string;
@@ -47,8 +48,9 @@ export default function ContactForm() {
   if (success) return <p>Message sent ✅</p>;
 
   return (
-    <section id="contact">
-      <div className="grid md:grid-cols-2">
+    <section id="contact" className="flex flex-col gap-8">
+      <H1 content="contact us" />
+      <div className="grid md:grid-cols-2 md:gap-3 gap-1">
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <input
             name="name"
@@ -63,6 +65,7 @@ export default function ContactForm() {
             required
             className="border p-2 rounded"
           />
+
           <textarea
             name="message"
             placeholder="Message"
@@ -75,7 +78,7 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={loading}
-            className="bg-black text-white p-2 rounded disabled:opacity-50"
+            className="bg-accent text-white px-4 py-2 rounded-full disabled:opacity-50 self-start "
           >
             {loading ? "Sending..." : "Send"}
           </button>
@@ -87,7 +90,6 @@ export default function ContactForm() {
           loading="lazy"
         ></iframe>
       </div>
-      social media
     </section>
   );
 }

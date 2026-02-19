@@ -1,18 +1,28 @@
 import { api } from "../sanity/api";
-import { UPCOMING_EVENTS_QUERY } from "../sanity/sanityConfig";
+import H1 from "./core/H1";
+import {
+  UPCOMING_EVENTS_QUERY,
+  ACTIVE_THEME_QUERY,
+} from "../sanity/sanityConfig";
 import EventUI from "./EventUI";
 import Link from "next/link";
+type Theme = {
+  name: string;
+};
 const Events = async () => {
   const events = await api<any[]>({
     query: UPCOMING_EVENTS_QUERY,
     revalidate: 60,
   });
 
+  const theme = await api<Theme>({
+    query: ACTIVE_THEME_QUERY,
+    revalidate: 60,
+  });
   return (
-    <section className="min-h-[30vh]">
-      <h1 className="text-3xl font-bold text-center mb-6 font-heading">
-        Upcoming Events
-      </h1>
+    <section className="min-h-[80vh] pt-16">
+      <H1 content="Upcoming Events" />
+      <h2 className="  text-center text-3xl font-cursive">{theme?.name}</h2>
       {events.length > 0 ? (
         <EventUI events={events} current={true} />
       ) : (

@@ -67,3 +67,13 @@ export const SPONSORS_QUERY = `*[_type == "sponsor"] | order(priority asc){
     description,
     "logo": logo.asset->url
   }`;
+export const SOCIALS_QUERY = `*[_type == "socialMedia"]{
+  platform,
+  url,
+  icon{
+    light,
+    dark,
+    alt
+  }
+}
+`;

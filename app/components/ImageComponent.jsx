@@ -12,5 +12,16 @@ const ImageComponent = ({ img, alt }) => {
     />
   );
 };
+export const Icons = ({ img, alt, className }) => {
+  return (
+    <Image
+      src={urlFor(img).width(32).url()}
+      alt={alt}
+      className={className}
+      width={32}
+      height={32}
+    />
+  );
+};
 
 export default ImageComponent;

@@ -1,6 +1,7 @@
 import ContactForm from "./components/Contact";
 import Events from "./components/Events";
 import Hero from "./components/Hero";
+
 import Sponsors from "./components/Sponsor";
 
 export default function Home() {
