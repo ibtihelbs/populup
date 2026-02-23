@@ -13,7 +13,6 @@ type Home = {
 
 const Hero = async () => {
   const home: Home = await api({ query: HOME_QUERY });
-  console.log(home);
   return (
     <section className=" min-h-screen grid md:grid-cols-3 items-center justify-center px-6 relative">
       <div className="md:col-span-2 absolute md:static text-center md:text-left z-10">
@@ -27,7 +26,7 @@ const Hero = async () => {
           <Link
             href={home.googleFormUrl}
             target="_blank"
-            className="rounded-full  px-6 py-3 text-white"
+            className="rounded-full  px-6 py-3 text-white bg-accent"
           >
             {home?.primaryCTA}
           </Link>
@@ -40,7 +39,7 @@ const Hero = async () => {
           </a>
         </div>
       </div>
-      <div className="relative  h-screen w-screen md:h-full md:w-full opacity-50 bg-red-300">
+      <div className="relative  h-screen w-screen md:h-full md:w-full opacity-50 bg-red-300 md:bg-transparent">
         <ImageComponent img={home?.heroImage} alt={home.heroSubtitle} />
       </div>
     </section>
