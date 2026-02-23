@@ -1,6 +1,7 @@
 import { api } from "../sanity/api";
 import { SPONSORS_QUERY } from "../sanity/sanityConfig";
 import H1 from "./core/H1";
+
 export default async function Sponsors() {
   const sponsors = await api<any[]>({
     query: SPONSORS_QUERY,

@@ -56,14 +56,14 @@ export default function ContactForm() {
             name="name"
             placeholder="Name"
             required
-            className="border p-2 rounded"
+            className="border p-2 rounded-full"
           />
           <input
             name="email"
             type="email"
             placeholder="Email"
             required
-            className="border p-2 rounded"
+            className="border p-2 rounded-full"
           />
 
           <textarea
@@ -85,9 +85,11 @@ export default function ContactForm() {
         </form>
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2890.246911755926!2d10.1953618!3d36.822669999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12fd350065594217%3A0x7d5e77b155db5e60!2sPopulup%20studio!5e1!3m2!1sen!2stn!4v1770889786742!5m2!1sen!2stn"
-          width="600"
-          height="450"
+          width="100%"
+          height="100%"
           loading="lazy"
+          className="rounded
+          "
         ></iframe>
       </div>
     </section>

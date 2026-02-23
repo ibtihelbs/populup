@@ -20,7 +20,7 @@ const Events = async () => {
     revalidate: 60,
   });
   return (
-    <section className="min-h-[80vh] pt-16">
+    <section className="min-h-[80vh] pt-16" id="upcoming-events">
       <H1 content="Upcoming Events" />
       <h2 className="  text-center text-3xl font-cursive">{theme?.name}</h2>
       {events.length > 0 ? (
