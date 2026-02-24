@@ -1,7 +1,7 @@
 // components/Footer.tsx
 import Link from "next/link";
 import SocialMedia from "./Socialmedia";
-
+import Image from "next/image";
 export default function Footer() {
   return (
     <footer className="border-t  bg-primary">
@@ -10,7 +10,13 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-3">
           {/* BRAND */}
           <div className="space-y-4">
-            <p className="text-xl font-semibold tracking-tight">Atelier</p>
+            <Image
+              src="/logo.jpg"
+              alt="logo"
+              width={50}
+              height={50}
+              className="rounded-full"
+            />
             <p className="max-w-xs text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
               A creative pop-up & workshop space for women in Tunis.
               Thoughtfully curated, slow, and community-driven.
@@ -55,7 +61,7 @@ export default function Footer() {
             <p className="text-sm font-medium uppercase tracking-wide text-zinc-500">
               Connect
             </p>
-            <SocialMedia />
+            <SocialMedia dark={true} />
           </div>
         </div>
 

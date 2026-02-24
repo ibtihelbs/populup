@@ -14,8 +14,8 @@ type Home = {
 const Hero = async () => {
   const home: Home = await api({ query: HOME_QUERY });
   return (
-    <section className=" min-h-screen grid md:grid-cols-3 items-center justify-center px-6 relative">
-      <div className="md:col-span-2 absolute md:static text-center md:text-left z-10">
+    <section className=" min-h-screen grid md:grid-cols-5 items-center justify-center px-6 relative">
+      <div className="md:col-span-3 absolute md:static text-center md:text-left z-10">
         <h1 className="mb-4 text-6xl font-bolder font-heading text-accents max-w-2xl">
           {home?.heroTitle}
         </h1>
@@ -39,8 +39,12 @@ const Hero = async () => {
           </a>
         </div>
       </div>
-      <div className="relative  h-screen w-screen md:h-full md:w-full opacity-50 bg-red-300 md:bg-transparent">
-        <ImageComponent img={home?.heroImage} alt={home.heroSubtitle} />
+      <div className="relative md:col-span-2  h-screen w-screen md:h-full md:w-full md:opacity-100 opacity-50 bg-red-300 md:bg-transparent">
+        <ImageComponent
+          img={home?.heroImage}
+          alt={home.heroSubtitle}
+          className={""}
+        />
       </div>
     </section>
   );

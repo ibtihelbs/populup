@@ -1,14 +1,15 @@
 import Image from "next/image";
 import { urlFor } from "../sanity/imageCov";
 
-const ImageComponent = ({ img, alt }) => {
+const ImageComponent = ({ img, alt, className }) => {
   return (
     <Image
       src={urlFor(img).url()}
       alt={alt}
       fill
       sizes="100vw"
-      style={{ objectFit: "cover" }}
+      className={className}
+      style={{ objectFit: "contain" }}
     />
   );
 };

@@ -14,22 +14,7 @@ export const HOME_QUERY = `
 *[_type == "home"][0]
 `;
 export const ACTIVE_THEME_QUERY = `
-*[_type == "theme" && active == true][0]{
-  name,
-  month,
-  description,
-  primaryColor,
-  secondaryColor,
-  accentColor,
-  headingFont->{
-    name,
-    fontFamily
-  },
-  bodyFont->{
-    name,
-    fontFamily
-  }
-}
+*[_type == "theme" && active == true][0]
 `;
 export const UPCOMING_EVENTS_QUERY = `
 *[_type == "event" &&

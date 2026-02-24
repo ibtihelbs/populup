@@ -19,15 +19,23 @@ export async function api<T>({
 }
 
 // ---- Fonts helpers ----
-
 export type SanityFont = {
-  fontFamily: string;
+  fontFamily?: string;
+  usage?: string; // heading, body, accent, etc
 };
 
 export function formatFontName(fonts: SanityFont[]) {
-  return fonts.map((font) =>
-    font.fontFamily.split(",")[0].replace(/['"]/g, "").replace(/\s+/g, "_"),
-  );
+  return fonts
+    .map((font) => {
+      const raw = font.fontFamily?.split(",")[0] ?? "";
+      const name = raw.replace(/['"]/g, "").replace(/\s+/g, "_");
+
+      return {
+        usage: font.usage ?? "default",
+        name,
+      };
+    })
+    .filter((f) => f.name); // remove empty
 }
 
 export async function getFormattedFonts(revalidate?: number) {
@@ -35,5 +43,11 @@ export async function getFormattedFonts(revalidate?: number) {
     query: FONTS_QUERY,
     revalidate,
   });
-  return formatFontName(fonts);
+
+  console.log("Sanity fonts:", fonts);
+
+  const formatted = formatFontName(fonts);
+
+  // dedupe by name
+  return Object.values(Object.fromEntries(formatted.map((f) => [f.name, f])));
 }

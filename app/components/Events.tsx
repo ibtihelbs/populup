@@ -6,8 +6,10 @@ import {
 } from "../sanity/sanityConfig";
 import EventUI from "./EventUI";
 import Link from "next/link";
+import ImageComponent from "./ImageComponent";
 type Theme = {
   name: string;
+  themeImage: string;
 };
 const Events = async () => {
   const events = await api<any[]>({
@@ -19,6 +21,7 @@ const Events = async () => {
     query: ACTIVE_THEME_QUERY,
     revalidate: 60,
   });
+
   return (
     <section className="min-h-[80vh] pt-16" id="upcoming-events">
       <H1 content="Upcoming Events" />
@@ -27,7 +30,13 @@ const Events = async () => {
         <EventUI events={events} current={true} />
       ) : (
         <div className="flex flex-col items-center justify-center">
-          <p>no upcoming event</p>
+          <div className="relative w-full h-[60vh] md:h-[90vh]">
+            <ImageComponent
+              img={theme?.themeImage}
+              alt={theme.name}
+              className=""
+            />
+          </div>
           <Link href="/events">View all events</Link>
         </div>
       )}

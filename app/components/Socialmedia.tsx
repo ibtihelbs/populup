@@ -17,7 +17,13 @@ type Social = {
 
 type Theme = "light" | "dark"; // if you detect server theme differently, adjust
 
-const SocialMedia = async ({ className }: { className?: string }) => {
+const SocialMedia = async ({
+  className,
+  dark,
+}: {
+  className?: string;
+  dark?: boolean;
+}) => {
   const socials = await api<Social[] | null>({
     query: SOCIALS_QUERY,
     revalidate: 60,
@@ -36,14 +42,14 @@ const SocialMedia = async ({ className }: { className?: string }) => {
           <Icons
             img={s.icon.light}
             alt={s.icon.alt}
-            className="block dark:hidden transition group-hover:scale-110"
+            className={`block ${dark ? "hidden" : "block"} transition group-hover:scale-110`}
           />
 
           {/* Dark Mode */}
           <Icons
             img={s.icon.dark}
             alt={s.icon.alt}
-            className="hidden dark:block transition group-hover:scale-110"
+            className={`hidden ${dark ? "block" : "hidden"} transition group-hover:scale-110`}
           />
         </Link>
       ))}

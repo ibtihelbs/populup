@@ -1,19 +1,30 @@
 // fonts.ts
-import { Geist_Mono, Ballet, Courier_Prime } from "next/font/google";
-
-const body = Courier_Prime({
+import {
+  Ballet,
+  Courier_Prime,
+  Playfair_Display,
+  DM_Sans,
+} from "next/font/google";
+//import { fonts } from "./api";
+const CourierPrime = Courier_Prime({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["400", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const cursive = Ballet({
+const Balletfnt = Ballet({
   variable: "--font-cursive",
   subsets: ["latin"],
 });
-export { body, cursive };
+
+const PlayfairDisplay = Playfair_Display({
+  variable: "--font-heading",
+  subsets: ["latin"],
+});
+
+const DMSans = DM_Sans({
+  variable: "--font-display",
+  subsets: ["latin"],
+});
+
+export { PlayfairDisplay as body, Balletfnt as cursive };
