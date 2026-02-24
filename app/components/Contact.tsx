@@ -50,7 +50,7 @@ export default function ContactForm() {
   return (
     <section id="contact" className="flex flex-col gap-8">
       <H1 content="contact us" />
-      <div className="grid md:grid-cols-2 md:gap-3 gap-1">
+      <div className="grid md:grid-cols-2 md:gap-3 gap-2">
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <input
             name="name"
