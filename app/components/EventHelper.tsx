@@ -49,10 +49,16 @@ const groupEventsByMonthAndWeek = (events: Event[]) => {
       month: "long",
     });
 
+    // Convert Sunday (0) → 6, Monday (1) → 0, Tuesday (2) → 1 ...
+    const getMondayBasedDay = (d: Date) => {
+      const day = d.getDay();
+      return (day + 6) % 7;
+    };
+
     const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-    const weekNumber = Math.ceil(
-      (date.getDate() + firstDayOfMonth.getDay()) / 7,
-    );
+    const firstDayIndex = getMondayBasedDay(firstDayOfMonth);
+
+    const weekNumber = Math.ceil((date.getDate() + firstDayIndex) / 7);
 
     const weekKey = `Week ${weekNumber}`;
 
@@ -104,6 +110,27 @@ const EventListEditorial = ({ events, current }: EventUIProps) => {
     return startTime;
   };
 
+  const EventCard = ({ event }: { event: Event }) => {
+    const eventDate = getEventDate(event)!;
+    const { day } = formatDate(eventDate);
+
+    return (
+      <Link
+        href={`/events/${event.slug.current}`}
+        className="block border border-gray-200 p-4 mb-4 bg-white rounded hover:shadow-md transition-all duration-200 hover:border-accent"
+      >
+        <div className="text-xs text-gray-400 mb-1">{day}</div>
+
+        <h4 className="font-heading text-lg text-accent mb-2">{event.title}</h4>
+
+        <p className="text-sm text-gray-600 mb-2">{event.price} TND</p>
+
+        <span className="text-sm text-gray-500 hover:text-accent">
+          View event details →
+        </span>
+      </Link>
+    );
+  };
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 md:py-12">
       {Object.entries(groupedEvents).map(([month, weeks]) => (
@@ -111,158 +138,75 @@ const EventListEditorial = ({ events, current }: EventUIProps) => {
           {/* MONTH HEADER */}
           <h2 className="text-3xl font-heading text-accent mb-8">{month}</h2>
 
-          {Object.entries(weeks).map(([week, weekEvents]) => (
-            <div key={week} className="mb-10">
-              {/* WEEK HEADER */}
-              <h3 className="text-lg font-body text-gray-500 mb-6">{week}</h3>
+          <div className="grid grid-cols-2 gap-2">
+            {Object.entries(weeks).map(([week, weekEvents]) => {
+              const fridayEvents: Event[] = [];
+              const saturdayEvents: Event[] = [];
+              const sundayEvents: Event[] = [];
 
-              {weekEvents.map((event) => {
-                const eventDate = getEventDate(event);
-                if (!eventDate) return null;
+              weekEvents.forEach((event) => {
+                const eventDate = new Date(getEventDate(event)!);
+                const day = eventDate.getDay();
 
-                const { month, day, dayOfWeek } = formatDate(eventDate);
-                const timeRange = formatTime(eventDate, event.duration);
+                if (day === 5) fridayEvents.push(event); // Friday
+                if (day === 6) saturdayEvents.push(event); // Saturday
+                if (day === 0) sundayEvents.push(event); // Sunday
+              });
 
-                const isSoldOut = event.isSoldOut || event.spotsRemaining === 0;
+              return (
+                <div key={week} className="mb-16">
+                  <h3 className="text-lg text-gray-500 mb-6">{week}</h3>
 
-                const spotsText = event.spotsRemaining
-                  ? `${event.spotsRemaining} spots`
-                  : event.spotsAvailable
-                    ? `${event.spotsAvailable} spots`
-                    : "";
+                  <div className="grid md:grid-cols-3 gap-8">
+                    {/* FRIDAY */}
+                    <div>
+                      <h4 className="text-sm uppercase tracking-wide text-gray-400 mb-4">
+                        Friday
+                      </h4>
 
-                return (
-                  <article
-                    key={event._id}
-                    className="border-b border-gray-200 py-6 md:py-8 last:border-0"
-                  >
-                    {/* MOBILE */}
-                    <div className="md:hidden space-y-4">
-                      <div className="flex items-center gap-3">
-                        <div className="bg-secondary text-white px-2 py-0.5 font-heading text-sm font-medium">
-                          {month}
-                        </div>
-                        <span className="font-heading text-4xl leading-none text-accent">
-                          {day}
-                        </span>
-                        <span className="font-body text-sm text-black">
-                          {dayOfWeek}
-                        </span>
-                      </div>
+                      {fridayEvents.length === 0 && (
+                        <p className="text-sm text-gray-300">No events</p>
+                      )}
 
-                      <h3 className="font-heading text-2xl text-accent">
-                        {event.title}
-                      </h3>
-
-                      <p className="font-body text-gray-600 text-sm">
-                        {event.description}
-                      </p>
-
-                      <div className="flex items-center justify-between pt-2">
-                        <div className="space-y-1">
-                          <p className="font-body text-sm text-gray-700">
-                            {timeRange}
-                          </p>
-                          <p className="font-body text-sm text-gray-600">
-                            {spotsText}
-                          </p>
-                        </div>
-
-                        <div className="text-right space-y-2">
-                          <p className="font-body text-lg font-medium text-[#B85C38]">
-                            {event.price} TND
-                          </p>
-
-                          {event.googleFormUrl && !isSoldOut && current ? (
-                            <a
-                              href={event.googleFormUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block text-sm hover:text-accent"
-                            >
-                              Reserve your spot
-                            </a>
-                          ) : (
-                            <Link
-                              href={`/events/${event.slug.current}`}
-                              className="text-sm hover:text-accent"
-                            >
-                              View event details
-                            </Link>
-                          )}
-
-                          {isSoldOut && current && (
-                            <p className="text-sm text-gray-400">Sold out</p>
-                          )}
-                        </div>
-                      </div>
+                      {fridayEvents.map((event) => (
+                        <EventCard key={event._id} event={event} />
+                      ))}
                     </div>
 
-                    {/* DESKTOP */}
-                    <div className="hidden md:grid md:grid-cols-[160px_1fr_200px] md:gap-8 md:items-start">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <div className="bg-secondary text-white px-3 py-1 font-heading text-base font-medium">
-                            {month}
-                          </div>
-                          <span className="font-heading text-5xl leading-none text-accent">
-                            {day}
-                          </span>
-                        </div>
-                        <p className="font-body text-sm text-black mt-1">
-                          {dayOfWeek}
-                        </p>
-                      </div>
+                    {/* SATURDAY */}
+                    <div>
+                      <h4 className="text-sm uppercase tracking-wide text-gray-400 mb-4">
+                        Saturday
+                      </h4>
 
-                      <div>
-                        <h3 className="font-heading text-3xl text-accent mb-4">
-                          {event.title}
-                        </h3>
-                        <p className="font-body text-gray-600">
-                          {event.description}
-                        </p>
-                      </div>
+                      {saturdayEvents.length === 0 && (
+                        <p className="text-sm text-gray-300">No events</p>
+                      )}
 
-                      <div className="text-right space-y-2">
-                        <p className="text-sm text-gray-700">{timeRange}</p>
-                        <p className="text-lg font-medium text-[#B85C38]">
-                          {event.price} TND
-                        </p>
-
-                        {current ? (
-                          <>
-                            <p className="text-sm text-gray-600">{spotsText}</p>
-
-                            {event.googleFormUrl && !isSoldOut && (
-                              <a
-                                href={event.googleFormUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-block text-sm hover:text-accent"
-                              >
-                                Reserve your spot
-                              </a>
-                            )}
-
-                            {isSoldOut && (
-                              <p className="text-sm text-gray-400">Sold out</p>
-                            )}
-                          </>
-                        ) : (
-                          <Link
-                            href={`/events/${event.slug.current}`}
-                            className="text-sm hover:text-accent"
-                          >
-                            View event details
-                          </Link>
-                        )}
-                      </div>
+                      {saturdayEvents.map((event) => (
+                        <EventCard key={event._id} event={event} />
+                      ))}
                     </div>
-                  </article>
-                );
-              })}
-            </div>
-          ))}
+
+                    {/* SUNDAY */}
+                    <div>
+                      <h4 className="text-sm uppercase tracking-wide text-gray-400 mb-4">
+                        Sunday
+                      </h4>
+
+                      {sundayEvents.length === 0 && (
+                        <p className="text-sm text-gray-300">No events</p>
+                      )}
+
+                      {sundayEvents.map((event) => (
+                        <EventCard key={event._id} event={event} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       ))}
     </div>
