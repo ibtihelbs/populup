@@ -42,14 +42,14 @@ const SocialMedia = async ({
           <Icons
             img={s.icon.light}
             alt={s.icon.alt}
-            className={`block ${dark ? "hidden" : "block"} transition group-hover:scale-110`}
+            className={` ${dark ? "hidden" : "block"} transition group-hover:scale-110`}
           />
 
           {/* Dark Mode */}
           <Icons
             img={s.icon.dark}
             alt={s.icon.alt}
-            className={`hidden ${dark ? "block" : "hidden"} transition group-hover:scale-110`}
+            className={` ${dark ? "block" : "hidden"} transition group-hover:scale-110`}
           />
         </Link>
       ))}

@@ -16,7 +16,7 @@ const Hero = async () => {
   return (
     <section className=" min-h-screen grid md:grid-cols-5 items-center justify-center px-6 relative">
       <div className="md:col-span-3 absolute md:static text-center md:text-left z-10">
-        <h1 className="mb-4 text-6xl font-bolder font-heading text-accents max-w-2xl">
+        <h1 className="mb-4 text-6xl font-bolder font-heading text-secondary max-w-2xl">
           {home?.heroTitle}
         </h1>
 

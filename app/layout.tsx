@@ -56,7 +56,7 @@ export default function RootLayout({
         className={`${body.variable} ${cursive.variable} antialiased  `}
       >
         <Nav />
-        <main className="md:p-32 p-4">{children}</main>
+        <main className="md:p-32 pt-28 px-5">{children}</main>
         <Footer />
         <SpeedInsights />
       </body>

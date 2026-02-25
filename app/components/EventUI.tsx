@@ -85,18 +85,18 @@ const EventListEditorial = ({ events, current }: EventUIProps) => {
               <div className="md:hidden space-y-4">
                 <div className="flex items-center gap-3">
                   {/* Blue box with month */}
-                  <div className="bg-[#4169E1] text-white px-2 py-0.5 font-heading text-sm font-medium">
+                  <div className="bg-secondary text-white px-2 py-0.5 font-heading text-sm font-medium">
                     {month}
                   </div>
-                  <span className="font-heading text-4xl leading-none text-foreground">
+                  <span className="font-heading text-4xl leading-none text-accent">
                     {day}
                   </span>
-                  <span className="font-body text-sm text-gray-500">
+                  <span className="font-body text-sm text-black">
                     {dayOfWeek}
                   </span>
                 </div>
 
-                <h3 className="font-heading text-2xl text-foreground">
+                <h3 className="font-heading text-2xl text-accent">
                   {event.title}
                 </h3>
 
@@ -117,17 +117,24 @@ const EventListEditorial = ({ events, current }: EventUIProps) => {
                     <p className="font-body text-lg font-medium text-[#B85C38]">
                       {event.price} TND
                     </p>
-                    {event.googleFormUrl && !isSoldOut && (
+                    {event.googleFormUrl && !isSoldOut && current ? (
                       <a
                         href={event.googleFormUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block font-body text-sm text-gray-700 hover:text-foreground transition-colors"
+                        className="block font-body text-sm text-gray-700 hover:text-accent transition-colors"
                       >
                         Reserve your spot
                       </a>
+                    ) : (
+                      <Link
+                        href={`/events/${event.slug.current}`}
+                        className="font-body text-sm text-gray-700 hover:text-accent transition-colors mt-2"
+                      >
+                        View event details
+                      </Link>
                     )}
-                    {isSoldOut && (
+                    {isSoldOut && current && (
                       <p className="font-body text-sm text-gray-400">
                         Sold out
                       </p>
@@ -142,21 +149,21 @@ const EventListEditorial = ({ events, current }: EventUIProps) => {
                 <div className="text-left">
                   <div className="flex items-center gap-2 mb-1">
                     {/* Blue box with month */}
-                    <div className="bg-[#4169E1] text-white px-3 py-1 font-heading text-base font-medium">
+                    <div className="bg-secondary text-white px-3 py-1 font-heading text-base font-medium">
                       {month}
                     </div>
-                    <span className="font-heading text-5xl leading-none text-foreground">
+                    <span className="font-heading text-5xl leading-none text-accent">
                       {day}
                     </span>
                   </div>
-                  <p className="font-body text-sm text-gray-500 mt-1">
+                  <p className="font-body text-sm text-black mt-1">
                     {dayOfWeek}
                   </p>
                 </div>
 
                 {/* MIDDLE: Content */}
                 <div>
-                  <h3 className="font-heading text-3xl text-foreground mb-4">
+                  <h3 className="font-heading text-3xl text-accent mb-4">
                     {event.title}
                   </h3>
                   <p className="font-body text-gray-600 leading-relaxed">
@@ -180,7 +187,7 @@ const EventListEditorial = ({ events, current }: EventUIProps) => {
                           href={event.googleFormUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-block font-body text-sm text-gray-700 hover:text-foreground transition-colors mt-2"
+                          className="inline-block font-body text-sm text-gray-700 hover:text-accent transition-colors mt-2"
                         >
                           Reserve your spot
                         </a>
@@ -194,7 +201,7 @@ const EventListEditorial = ({ events, current }: EventUIProps) => {
                   ) : (
                     <Link
                       href={`/events/${event.slug.current}`}
-                      className="font-body text-sm text-gray-700 hover:text-foreground transition-colors mt-2"
+                      className="font-body text-sm text-gray-700 hover:text-accent transition-colors mt-2"
                     >
                       View event details
                     </Link>
