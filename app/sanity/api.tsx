@@ -44,10 +44,15 @@ export async function getFormattedFonts(revalidate?: number) {
     revalidate,
   });
 
-  console.log("Sanity fonts:", fonts);
-
   const formatted = formatFontName(fonts);
 
-  // dedupe by name
-  return Object.values(Object.fromEntries(formatted.map((f) => [f.name, f])));
+  // group by usage
+  const grouped = formatted.reduce<Record<string, string>>((acc, font) => {
+    if (!acc[font.usage]) {
+      acc[font.usage] = font.name;
+    }
+    return acc;
+  }, {});
+
+  return grouped;
 }
