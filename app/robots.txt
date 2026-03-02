@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://populup.vercel.app/sitemap.xml

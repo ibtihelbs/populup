@@ -22,6 +22,7 @@ const Events = async () => {
     query: ACTIVE_THEME_QUERY,
     revalidate: 60,
   });
+  console.log(theme);
   return (
     <section className="min-h-[80vh] pt-16" id="upcoming-events">
       <H1 content="Upcoming Events" />
@@ -44,6 +45,7 @@ const Events = async () => {
               className=""
             />
           </div>
+          <Link href="/events">View all events</Link>
           <Link href="/events">View all events</Link>
         </div>
       )}
